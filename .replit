@@ -1,4 +1,4 @@
-run = "cd backend && python3 replit_app.py"
+run = "cd backend && python3 admin_app.py"
 language = "python3"
 
 [nix]

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 刷题系统 - 管理后台</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>📚 刷题管理</h1>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#" data-section="dashboard" class="nav-item active">
+                    <span class="icon">📊</span>
+                    <span>仪表板</span>
+                </a>
+                <a href="#" data-section="questions" class="nav-item">
+                    <span class="icon">❓</span>
+                    <span>题目管理</span>
+                </a>
+                <a href="#" data-section="categories" class="nav-item">
+                    <span class="icon">📁</span>
+                    <span>分类管理</span>
+                </a>
+                <a href="#" data-section="users" class="nav-item">
+                    <span class="icon">👥</span>
+                    <span>用户统计</span>
+                </a>
+                <a href="#" data-section="profile" class="nav-item">
+                    <span class="icon">⚙️</span>
+                    <span>账户设置</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button id="logoutBtn" class="btn btn-danger">
+                    <span class="icon">🚪</span>
+                    <span>退出登录</span>
+                </button>
+            </div>
+        </aside>
+        
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <!-- 顶部栏 -->
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <button id="sidebarToggle" class="btn btn-sm">☰</button>
+                    <h2 id="pageTitle">仪表板</h2>
+                </div>
+                <div class="top-bar-right">
+                    <span id="userInfo" class="user-info">欢迎, 管理员</span>
+                </div>
+            </header>
+            
+            <!-- 内容区域 -->
+            <div class="content-area">
+                <!-- 仪表板 -->
+                <section id="dashboard" class="section active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">❓</div>
+                            <div class="stat-info">
+                                <div class="stat-label">题目总数</div>
+                                <div class="stat-value" id="totalQuestions">--</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">✅</div>
+                            <div class="stat-info">
+                                <div class="stat-label">已发布</div>
+                                <div class="stat-value" id="publishedQuestions">--</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📝</div>
+                            <div class="stat-info">
+                                <div class="stat-label">总答题数</div>
+                                <div class="stat-value" id="totalAnswers">--</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">👥</div>
+                            <div class="stat-info">
+                                <div class="stat-label">用户数</div>
+                                <div class="stat-value" id="totalUsers">--</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🎯</div>
+                            <div class="stat-info">
+                                <div class="stat-label">平均正确率</div>
+                                <div class="stat-value" id="accuracy">--%</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 题目管理 -->
+                <section id="questions" class="section">
+                    <div class="section-header">
+                        <h2>题目管理</h2>
+                        <button id="addQuestionBtn" class="btn btn-primary">+ 添加题目</button>
+                    </div>
+                    
+                    <div class="filters">
+                        <input type="text" id="questionSearch" placeholder="搜索题目..." class="input">
+                        <select id="difficultyFilter" class="input">
+                            <option value="">所有难度</option>
+                            <option value="easy">简单</option>
+                            <option value="medium">中等</option>
+                            <option value="hard">困难</option>
+                        </select>
+                        <select id="categoryFilter" class="input">
+                            <option value="">所有分类</option>
+                        </select>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>题目</th>
+                                    <th>难度</th>
+                                    <th>分类</th>
+                                    <th>类型</th>
+                                    <th>浏览</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="questionsTableBody">
+                                <tr><td colspan="7" class="text-center">加载中...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                
+                <!-- 分类管理 -->
+                <section id="categories" class="section">
+                    <div class="section-header">
+                        <h2>分类管理</h2>
+                        <button id="addCategoryBtn" class="btn btn-primary">+ 添加分类</button>
+                    </div>
+                    
+                    <div class="categories-list" id="categoriesList">
+                        <p class="text-center">加载中...</p>
+                    </div>
+                </section>
+                
+                <!-- 用户统计 -->
+                <section id="users" class="section">
+                    <div class="section-header">
+                        <h2>用户统计</h2>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>用户ID</th>
+                                    <th>总答题数</th>
+                                    <th>正确数</th>
+                                    <th>错误数</th>
+                                    <th>正确率</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableBody">
+                                <tr><td colspan="5" class="text-center">加载中...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                
+                <!-- 账户设置 -->
+                <section id="profile" class="section">
+                    <div class="settings-form">
+                        <h2>账户设置</h2>
+                        
+                        <div class="form-group">
+                            <label>用户名</label>
+                            <input type="text" id="profileUsername" disabled class="input">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>邮箱</label>
+                            <input type="email" id="profileEmail" disabled class="input">
+                        </div>
+                        
+                        <h3>修改密码</h3>
+                        
+                        <div class="form-group">
+                            <label>旧密码</label>
+                            <input type="password" id="oldPassword" class="input">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>新密码</label>
+                            <input type="password" id="newPassword" class="input">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>确认密码</label>
+                            <input type="password" id="confirmPassword" class="input">
+                        </div>
+                        
+                        <button id="changePasswordBtn" class="btn btn-primary">修改密码</button>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    
+    <!-- 模态框 -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">标题</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- 动态内容 -->
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
