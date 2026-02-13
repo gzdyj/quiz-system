@@ -292,7 +292,9 @@ if __name__ == '__main__':
     with app.app_context():
         init_questions()
     
-    # 启动服务
-    port = int(os.getenv('PORT', 5000))
-    print(f"🚀 服务启动在 http://0.0.0.0:{port}")
-    app.run(host='0.0.0.0', port=port, debug=False)
+    # 启动服务 - Replit 需要使用 3000 或从环境变量读取
+    port = int(os.getenv('PORT', 3000))
+    host = os.getenv('HOST', '0.0.0.0')
+    print(f"🚀 服务启动在 http://{host}:{port}")
+    print(f"📱 访问地址: http://localhost:{port}")
+    app.run(host=host, port=port, debug=False)
