@@ -1,5 +1,19 @@
-// 自动检测后端地址：如果在 8000 端口（http.server），后端在 5000 端口
-const API_BASE = window.location.port === '8000' ? 'http://localhost:5000/api' : '/api';
+// 自动检测后端地址
+// - 本地开发: 使用 http://localhost:5000
+// - Replit: 使用同源 /api
+// - 其他: 使用 /api
+const API_BASE = (() => {
+    const hostname = window.location.hostname;
+    const port = window.location.port;
+    
+    // 本地开发环境（8000 端口）
+    if (port === '8000' || (hostname === 'localhost' && port === '8000')) {
+        return 'http://localhost:5000/api';
+    }
+    
+    // Replit 和其他部署环境
+    return '/api';
+})();
 let currentPage = 1;
 let currentQuestion = null;
 let userId = 'user_' + Date.now();

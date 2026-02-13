@@ -1,0 +1,20 @@
+run = "cd backend && python3 replit_app.py"
+language = "python3"
+modules = ["python-3.10:python/3.10"]
+
+[nix]
+channel = "stable-22_11"
+
+[unitTest]
+language = "python3"
+
+[debugger]
+support = true
+
+[debugger.interactive]
+transport = "localhost:0"
+startCommand = ["dap-python", "python3"]
+
+[[ports]]
+localPort = 5000
+externalPort = 80
