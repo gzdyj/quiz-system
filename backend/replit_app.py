@@ -281,10 +281,13 @@ FRONTEND_PATH = os.path.join(os.path.dirname(__file__), '..', 'frontend')
 
 @app.route('/')
 def index():
-    return send_file(os.path.join(FRONTEND_PATH, 'index.html'))
+    return send_from_directory(FRONTEND_PATH, 'index.html')
 
 @app.route('/<path:path>')
 def static_files(path):
+    # 避免路由冲突：如果路径以 /api 开头，不处理
+    if path.startswith('api'):
+        return {'error': 'Not found'}, 404
     return send_from_directory(FRONTEND_PATH, path)
 
 if __name__ == '__main__':

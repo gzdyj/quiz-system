@@ -1,17 +1,15 @@
 // 自动检测后端地址
-// - 本地开发: 使用 http://localhost:5000
-// - Replit: 使用同源 /api
-// - 其他: 使用 /api
+// - Replit 和生产环境: 使用相对路径 /api（同源）
+// - 本地开发 (8000 端口): 使用 localhost:5000
 const API_BASE = (() => {
-    const hostname = window.location.hostname;
     const port = window.location.port;
     
-    // 本地开发环境（8000 端口）
-    if (port === '8000' || (hostname === 'localhost' && port === '8000')) {
+    // 本地开发环境（8000 端口）- 后端在 5000
+    if (port === '8000') {
         return 'http://localhost:5000/api';
     }
     
-    // Replit 和其他部署环境
+    // Replit 和其他部署环境 - 使用同源请求
     return '/api';
 })();
 let currentPage = 1;
