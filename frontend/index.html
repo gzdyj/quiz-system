@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算机考试刷题系统</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 导航栏 -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <h1 class="logo">💻 刷题系统</h1>
+                <div class="nav-links">
+                    <button class="nav-btn active" onclick="switchView('questions')">题目列表</button>
+                    <button class="nav-btn" onclick="switchView('stats')">成绩统计</button>
+                    <input type="text" id="userId" placeholder="输入用户ID" class="user-input">
+                </div>
+            </div>
+        </nav>
+
+        <!-- 题目列表视图 -->
+        <div id="questionsView" class="view active">
+            <div class="container">
+                <div class="filter-section">
+                    <h2>题目筛选</h2>
+                    <div class="filters">
+                        <select id="difficultyFilter" onchange="applyFilters()">
+                            <option value="">全部难度</option>
+                            <option value="easy">简单</option>
+                            <option value="medium">中等</option>
+                            <option value="hard">困难</option>
+                        </select>
+                        <select id="typeFilter" onchange="applyFilters()">
+                            <option value="">全部类型</option>
+                            <option value="single">单选题</option>
+                            <option value="multiple">多选题</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="questionsList" class="questions-list"></div>
+                
+                <div class="pagination">
+                    <button id="prevBtn" onclick="previousPage()" class="pagination-btn">上一页</button>
+                    <span id="pageInfo"></span>
+                    <button id="nextBtn" onclick="nextPage()" class="pagination-btn">下一页</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 答题界面 -->
+        <div id="answerView" class="view">
+            <div class="container">
+                <button class="back-btn" onclick="backToList()">← 返回列表</button>
+                <div id="questionDetail"></div>
+            </div>
+        </div>
+
+        <!-- 成绩统计视图 -->
+        <div id="statsView" class="view">
+            <div class="container">
+                <h2>成绩统计</h2>
+                <div id="statsContent" class="stats-container"></div>
+            </div>
+        </div>
+
+        <!-- 模态框：答题结果 -->
+        <div id="resultModal" class="modal">
+            <div class="modal-content">
+                <h3 id="resultTitle"></h3>
+                <div id="resultBody"></div>
+                <button class="btn-primary" onclick="closeResultModal()">继续答题</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
