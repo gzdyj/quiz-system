@@ -1,4 +1,5 @@
-const API_BASE = '/api';
+// 自动检测后端地址：如果在 8000 端口（http.server），后端在 5000 端口
+const API_BASE = window.location.port === '8000' ? 'http://localhost:5000/api' : '/api';
 let currentPage = 1;
 let currentQuestion = null;
 let userId = 'user_' + Date.now();
